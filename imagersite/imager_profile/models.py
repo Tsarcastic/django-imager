@@ -1,19 +1,31 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+CAMERA_CHOICE = (
+    ('1', 'One'),
+    ('Banana', 'Two'),
+    ('Turtle', 'Pie'))
+
+SERVICES = (
+    ('Go home', 'One'),
+    ('Or not', 'Two'))
+
+STYLEZ = (
+    ('Old Timey', 'One'),
+    ('New Timey', 'Two'))
+
 
 class ImagerProfile(models.Model):
+    """."""
+    
     user = models.ForeignKey(User, unique=True)
-    website = models.CharField(('Website'), blank=True)
-    location = models.CharField(('Location'), blank=True)
-    fee = models
-    # website - str | url
-    # location - str
-    # fee - float
-    # camera - str | choices
-    # services - str | multiple choices
-    # bio - str | large text
-    # phone - str
-    # photo_styles - str | multiple choices
+    website = models.URLField(blank=True)
+    location = models.CharField(max_length=255, blank=True)
+    fee = models.FloatField(blank=True)
+    camera = models.CharField(max_length=255, choices=CAMERA_CHOICE)
+    services = models.CharField(max_length=255, choices=SERVICES)
+    bio = models.TextField(blank=True)
+    phone = models.CharField(max_length=255)
+    photo_styles = models.CharField(max_length=255, choices=STYLEZ)
     # user
     # is_active
