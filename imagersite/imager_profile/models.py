@@ -15,9 +15,22 @@ STYLEZ = (
     ('New Timey', 'Two'))
 
 
+class ProfileManager(models.Manager):
+    def get_queryset(self):
+        return super(ProfileManager, self).get_queryset()
+        .filter(user.is_active=True)
+
+
 class ImagerProfile(models.Model):
-    """."""
-    
+    """Profile for users of the site.
+    Connects with Django's built-in User model"""
+
+    def is_active(self):
+        return user.is_active
+
+    active = models.ProfileManager()
+    profiles = models.Manager()
+
     user = models.ForeignKey(User, unique=True)
     website = models.URLField(blank=True)
     location = models.CharField(max_length=255, blank=True)
@@ -25,7 +38,5 @@ class ImagerProfile(models.Model):
     camera = models.CharField(max_length=255, choices=CAMERA_CHOICE)
     services = models.CharField(max_length=255, choices=SERVICES)
     bio = models.TextField(blank=True)
-    phone = models.CharField(max_length=255)
+    phone = models.CharField(blank=True, max_length=255)
     photo_styles = models.CharField(max_length=255, choices=STYLEZ)
-    # user
-    # is_active
